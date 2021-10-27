@@ -8,13 +8,12 @@
                     <a href="/squads/{{id}}"><button class="btn btn-info btn-md">Details</button></a><br><br><hr>
                 {{/each}}
             {{else}}
-                <h3>You haven't created any squads!</h3>
+                <h3>You haven not created any squads!</h3>
             {{/if}}
         </div>
         <div class="col-md-6">
             {{#if squad}}
                 <div class="card  text-dark">
-
                     <div class="card-body">
                         <h4 class="card-title">{{squad.name}}  <a href="/squad/{{squad.id}}/delete"><button class="btn
                         btn-danger">Delete Squad</button></a></h4>
