@@ -64,7 +64,7 @@
                 <version>2.0.3</version>
                 <configuration>
                     <jdkVersion>1.8</jdkVersion>
-                    <appName>heroku-squad</appName>
+                    <appName>heroku-squad2021</appName>
                     <processTypes>
                         <web>java -jar target/heroku-app-1.0-jar-with-dependencies.jar</web>
                     </processTypes>
