@@ -3,13 +3,13 @@ package models;
 import java.util.ArrayList;
 
 public class Hero {
-    private String name;
+    private final String name;
     private int id;
-    private int age;
-    private String powers;
-    private  String weakness;
+    private final int age;
+    private final String powers;
+    private final String weakness;
     private boolean available;
-    private static ArrayList<Hero> heroes=new ArrayList<Hero>();
+    private static final ArrayList<Hero> heroes= new ArrayList<>();
 
     public Hero(String name, int age, String powers, String weakness) {
         this.name = name;

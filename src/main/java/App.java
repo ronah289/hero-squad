@@ -9,6 +9,7 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static spark.Spark.*;
 
@@ -26,13 +27,13 @@ public class App {
         Hero hero1 = new Hero("hero1",23,"fly","weak");
         //default page
         get("/", (request, response) -> {
-            Map<String, Object> model = new HashMap<String, Object>();
+            Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
         // create a hero
         get("/create/hero",(request, response) -> {
-            Map<String, Object> model = new HashMap<String, Object>();
+            Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "create-hero.hbs");
         },new HandlebarsTemplateEngine());
         post("/heroes/new", (request, response) -> { //URL to make new post on POST route
@@ -47,7 +48,7 @@ public class App {
         }, new HandlebarsTemplateEngine());
         //delete a hero
         get("/heroes/delete",(request, response) -> {
-            Map<String, Object> model = new HashMap<String, Object>();
+            Map<String, Object> model = new HashMap<>();
             Hero.clearAll();
             model.put("heroes",Hero.getHeroes());
             return new ModelAndView(model,"all-heroes.hbs");
@@ -74,11 +75,11 @@ public class App {
 
         //squad
         get("/squads/delete",(request, response) -> {
-            Map<String, Object> model = new HashMap<String, Object>();
+            Map<String, Object> model = new HashMap<>();
             Squad.clearAll();
             ArrayList<Hero> heroes=Hero.getHeroes();
-            for (int i=0;i<heroes.size();i++){
-                heroes.get(i).updateHero(false);
+            for (Hero hero : heroes) {
+                hero.updateHero(false);
             }
             model.put("squads",Squad.getSquads());
             return new ModelAndView(model,"all-squads.hbs");
@@ -88,10 +89,10 @@ public class App {
         get("/create/squad",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
             ArrayList<Hero> heroes=Hero.getHeroes();
-            ArrayList<Hero> heroList=new ArrayList<>();
-            for (int i=0;i<heroes.size();i++){
-                if(heroes.get(i).isAvailable()==false){
-                    heroList.add(heroes.get(i));
+            AtomicReference<ArrayList<Hero>> heroList= new AtomicReference<>(new ArrayList<>());
+            for (Hero hero : heroes) {
+                if (!hero.isAvailable()) {
+                    heroList.get().add(hero);
                 }
             }
 
@@ -108,16 +109,17 @@ public class App {
             if(request.queryParamsValues("heroes")!=null){
                 String[] heroesList=request.queryParamsValues("heroes");
 
-                for(int i=0;i<heroesList.length;i++){
-                    Hero addHero=Hero.findHeroById(Integer.parseInt(heroesList[i]));
-                    if(heroes.size()<maxSize){
+                for (String s : heroesList) {
+                    Hero addHero = Hero.findHeroById(Integer.parseInt(s));
+                    if (heroes.size() < maxSize) {
+                        assert addHero != null;
                         addHero.updateHero(true);
                         heroes.add(addHero);
                     }
 
                 }
             }
-            Squad newSquad= new Squad(maxSize,name,cause,heroes);
+            AtomicReference<Squad> newSquad= new AtomicReference<>(new Squad(maxSize, name, cause, heroes));
 
             model.put("heroes",Hero.getHeroes());
             return new ModelAndView(model, "create-squad.hbs");
@@ -149,6 +151,7 @@ public class App {
             for (int i=idOfHeroToDelete;i<Hero.getHeroes().size();i++){
                 Hero.getHeroes().get(i).setId(Hero.getHeroes().get(i).getId()-1);
             }
+            assert foundHero != null;
             foundHero.deleteHero();
             ArrayList<Hero> heroes = Hero.getHeroes();
             model.put("heroes", heroes);
@@ -160,9 +163,10 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             int idOfSquadToDelete=Integer.parseInt(request.params(":id"));
             Squad foundSquad=Squad.findById(idOfSquadToDelete);
+            assert foundSquad != null;
             ArrayList<Hero> heroes=foundSquad.getHeroes();
-            for(int i=0;i<heroes.size();i++){
-                heroes.get(i).updateHero(false);
+            for (Hero hero : heroes) {
+                hero.updateHero(false);
             }
             for (int i=idOfSquadToDelete;i<Squad.getSquads().size();i++){
                 Squad.getSquads().get(i).setId(Squad.getSquads().get(i).getId()-1);

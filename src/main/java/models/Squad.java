@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Squad {
 
-    private int maxSize;
-    private String name;
-    private String cause;
+    private final int maxSize;
+    private final String name;
+    private final String cause;
     private int id;
-    private ArrayList<Hero> heroes;
-    public static ArrayList<Squad> squads=new ArrayList<Squad>();
+    private final ArrayList<Hero> heroes;
+    public static ArrayList<Squad> squads= new ArrayList<>();
 
     public Squad(int maxSize, String name, String cause, ArrayList<Hero> heroes) {
 
@@ -41,7 +41,7 @@ public class Squad {
 
     public static int clearAll(){
         squads.clear();
-        return squads.size();
+        return 0;
     }
 
     public static Squad findById(int id){
