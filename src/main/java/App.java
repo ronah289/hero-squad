@@ -106,19 +106,19 @@ public class App {
             int maxSize=Integer.parseInt(request.queryParams("size"));
             String cause=request.queryParams("cause");
             ArrayList<Hero> heroes=new ArrayList<>();
-            if(request.queryParamsValues("heroes")!=null){
-                String[] heroesList=request.queryParamsValues("heroes");
-
-                for (String s : heroesList) {
-                    Hero addHero = Hero.findHeroById(Integer.parseInt(s));
-                    if (heroes.size() < maxSize) {
-                        assert addHero != null;
-                        addHero.updateHero(true);
-                        heroes.add(addHero);
-                    }
-
-                }
-            }
+//            if(request.queryParamsValues("heroes")!=null){
+//                String[] heroesList=request.queryParamsValues("heroes");
+//
+//                for (String s : heroesList) {
+//                    Hero addHero = Hero.findHeroById(Integer.parseInt(s));
+//                    if (heroes.size() < maxSize) {
+//                        assert addHero != null;
+//                        addHero.updateHero(true);
+//                        heroes.add(addHero);
+//                    }
+//
+//                }
+//            }
             Squad newSquad= new Squad(maxSize,name,cause,heroes);
 
             model.put("heroes",Hero.getHeroes());
