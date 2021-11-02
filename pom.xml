@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.hero.squad.app</groupId>
-    <artifactId>hero-squad</artifactId>
+    <artifactId>my-app</artifactId>
     <version>1.0</version>
 
     <dependencies>
@@ -14,6 +14,16 @@
             <groupId>com.sparkjava</groupId>
             <artifactId>spark-core</artifactId>
             <version>2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4.1208</version>
         </dependency>
         <dependency>
             <groupId>org.sql2o</groupId>
@@ -58,6 +68,7 @@
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                     <archive>
+                        <!-- Change this to YOUR main class name if different. Usually, it will be App. -->
                         <manifest>
                             <mainClass>App</mainClass>
                         </manifest>
@@ -71,9 +82,9 @@
                 <configuration>
                     <jdkVersion>1.8</jdkVersion>
                     <!-- Change this to YOUR application name! -->
-                    <appName>hero-squad21</appName>
+                    <appName>heroku-squad-app2021</appName>
                     <processTypes>
-                        <web>java -jar target/hero-squad21-1.0-jar-with-dependencies.jar</web>
+                        <web>java -jar target/my-app-1.0-jar-with-dependencies.jar</web>
                     </processTypes>
                 </configuration>
             </plugin>

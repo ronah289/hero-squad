@@ -1,1 +1,0 @@
-web: java -jar target/hero-squad21-1.0-jar-with-dependencies.jar
