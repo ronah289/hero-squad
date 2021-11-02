@@ -12,10 +12,18 @@
                 <input type="text" name="cause" id="cause" required><br>
             </div>
             <label for="heroes">Available Heroes  <br> <p>Create heroes or
-                delete squads to free heroes</p></label><br><br>
+                delete some squads to free up heroes</p></label><br><br>
             {{#if heroes}}
+                {{#each heroes}}
+                    {{#if occupied}}
+
+                    {{else}}
+                        <h3><input type="checkbox" name="heroes" id={{id}} value={{id}}> {{name}}</h3>
+                    {{/if}}
+
+                {{/each}}
             {{else}}
-                <h4>Create other heroes</h4>
+                <h4>Create more heroes</h4>
             {{/if}}
             <button type="submit" class="btn btn-success btn-lg">Create</button>
         </form>

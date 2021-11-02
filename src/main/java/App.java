@@ -1,15 +1,10 @@
 import models.Hero;
 import models.Squad;
 import spark.ModelAndView;
-import spark.QueryParamsMap;
-import spark.Request;
 import spark.template.handlebars.HandlebarsTemplateEngine;
-
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -114,9 +109,10 @@ public class App {
             if(request.queryParamsValues("heroes")!=null){
                 String[] heroesList=request.queryParamsValues("heroes");
 
-                for(int i=0;i<heroesList.length;i++){
-                    Hero addHero=Hero.findHeroById(Integer.parseInt(heroesList[i]));
-                    if(heroes.size()<maxSize){
+                for (String s : heroesList) {
+                    Hero addHero = Hero.findHeroById(Integer.parseInt(s));
+                    if (heroes.size() < maxSize) {
+                        assert addHero != null;
                         addHero.updateHero(true);
                         heroes.add(addHero);
                     }
