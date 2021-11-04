@@ -107,7 +107,7 @@ public class App {
             String cause=request.queryParams("cause");
             ArrayList<Hero> heroes=new ArrayList<>();
             if(request.queryParamsValues("heroes")!=null){
-                String[] heroesList=request.queryParamsValues("heroes");
+                String[] heroesList = request.queryParamsValues("heroes");
 
                 for(int i=0;i<heroesList.length;i++){
                     Hero addHero=Hero.findHeroById(Integer.parseInt(heroesList[i]));
