@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.hero.squad.app</groupId>
-    <artifactId>my-app</artifactId>
+    <artifactId>hero-squad-app2021</artifactId>
     <version>1.0</version>
 
     <dependencies>
@@ -13,22 +13,13 @@
         <dependency>
             <groupId>com.sparkjava</groupId>
             <artifactId>spark-core</artifactId>
-            <version>2.2</version>
+            <version>2.6.0</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
             <version>1.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.4.1208</version>
-        </dependency>
-        <dependency>
-            <groupId>org.sql2o</groupId>
-            <artifactId>sql2o</artifactId>
-            <version>1.5.4</version>
         </dependency>
         <dependency>
             <groupId>com.sparkjava</groupId>
@@ -54,26 +45,24 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
                         <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
+                        <goals><goal>copy</goal></goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.github.jsimone</groupId>
+                                    <artifactId>webapp-runner</artifactId>
+                                    <version>9.0.13.0</version>
+                                    <destFileName>webapp-runner.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <!-- Change this to YOUR main class name if different. Usually, it will be App. -->
-                        <manifest>
-                            <mainClass>App</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.heroku.sdk</groupId>
@@ -84,7 +73,7 @@
                     <!-- Change this to YOUR application name! -->
                     <appName>hero-squad-app2021</appName>
                     <processTypes>
-                        <web>java -jar target/hero-squad-app2021-1.0-jar-with-dependencies.jar</web>
+                        <web>java -jar target/hero-squad-app2021-1.0.jar</web>
                     </processTypes>
                 </configuration>
             </plugin>
