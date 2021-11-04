@@ -15,7 +15,7 @@
                 delete some squads to free up heroes</p></label><br><br>
             {{#if heroes}}
                 {{#each heroes}}
-                    {{#if occupied}}
+                    {{#if available}}
 
                     {{else}}
                         <h3><input type="checkbox" name="heroes" id={{id}} value={{id}}> {{name}}</h3>

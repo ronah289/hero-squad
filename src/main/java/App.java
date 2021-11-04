@@ -16,7 +16,7 @@ public class App {
         if (processBuilder.environment().get("PORT") != null) {
             return Integer.parseInt(processBuilder.environment().get("PORT"));
         }
-        return 4568;
+        return 4567;
     }
     public static void main(String[] args) {
         port(getHerokuPort());
@@ -106,19 +106,18 @@ public class App {
             int maxSize=Integer.parseInt(request.queryParams("size"));
             String cause=request.queryParams("cause");
             ArrayList<Hero> heroes=new ArrayList<>();
-//            if(request.queryParamsValues("heroes")!=null){
-//                String[] heroesList=request.queryParamsValues("heroes");
-//
-//                for (String s : heroesList) {
-//                    Hero addHero = Hero.findHeroById(Integer.parseInt(s));
-//                    if (heroes.size() < maxSize) {
-//                        assert addHero != null;
-//                        addHero.updateHero(true);
-//                        heroes.add(addHero);
-//                    }
-//
-//                }
-//            }
+            if(request.queryParamsValues("heroes")!=null){
+                String[] heroesList=request.queryParamsValues("heroes");
+
+                for(int i=0;i<heroesList.length;i++){
+                    Hero addHero=Hero.findHeroById(Integer.parseInt(heroesList[i]));
+                    if(heroes.size()<maxSize){
+                        addHero.updateHero(true);
+                        heroes.add(addHero);
+                    }
+
+                }
+            }
             Squad newSquad= new Squad(maxSize,name,cause,heroes);
 
             model.put("heroes",Hero.getHeroes());
